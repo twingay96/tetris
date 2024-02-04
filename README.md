@@ -1,4 +1,4 @@
-init,renderBlocks함수(~19:51) 부분 설명:
+    init,renderBlocks함수(~19:51) 부분 설명 :
 
 ![image](https://github.com/twingay96/tetris/assets/64403357/392fd7b5-b6b3-4195-b30b-328f774c5791)
 ![image](https://github.com/twingay96/tetris/assets/64403357/400f3f6c-e6b3-4ef7-8f77-ac718290d9e5)
@@ -17,3 +17,23 @@ tempMovingItem값은 계속해서 바뀌는데 바꾼 값이 칸밖을 나가지
 ![image](https://github.com/twingay96/tetris/assets/64403357/57888291-6d5c-4c06-a648-c41b40c0be48)
 
 스프레드 오퍼레이터를 통해서 변수를 담으면 movingItem내부의 값만 tempMovingItem에 저장되기 때문에 movingItem값이 변경되더라도 tempMovingItem값은 변하지 않음
+
+    키 입력에따라 블럭이동 구현 (~30:51) :
+
+![image](https://github.com/twingay96/tetris/assets/64403357/505016ce-f6f4-43ec-8041-1eed203e0949)
+
+이벤트 리스너로 키보드 입력을 해보면 브라우저의 console에 
+
+![image](https://github.com/twingay96/tetris/assets/64403357/c66fbb74-a18c-4e15-a762-8487ead65da6)
+
+와 같이 출력되는 것을 확인 할 수 있으며, 펼쳐서 내부를 자세히 살피면 
+
+![image](https://github.com/twingay96/tetris/assets/64403357/65eddfca-df33-46bb-85cf-d8f8ef08d890)
+
+키 입력마다 고유의 KeyCode를 가지고 있음을 알 수 있음 keyCode를 통해서 어떤 입력이 되었는지 식별이 가능함.
+좌 우 하 방향키 입력에 따라 블럭을 이동시키도록 구현:
+
+![image](https://github.com/twingay96/tetris/assets/64403357/50e3d9e1-cbb6-4f20-a55e-a256d5181532)
+
+
+
