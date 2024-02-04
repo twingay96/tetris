@@ -18,6 +18,8 @@ body{
 .playground > ul { 
     /* playground tag의 자식요소인 ul tag에 적용 */
     border: 1px solid #333;
+    width: 250px;
+    margin: 0 auto;
 }
 .playground > ul> li {
     width: 100%;
