@@ -65,12 +65,35 @@ function renderBlocks(){
     BLOCKS[type][direction].forEach(block => {
         const x = block[0] + left;
         const y = block[1] + top;
-        const target = playground.childNodes[y].childNodes[0].childNodes[x];
-        target.classList.add(type, "moving")
-    
+        // 블럭이 정해진 공간 이상으로 벗남 == playground.childNodes[y]가 없거나 playground.childNodes[y].childNodes[0].childNodes[x]가 없는경우
+        const target = playground.childNodes[y] ? playground.childNodes[y].childNodes[0].childNodes[x] : null;
+        // playground.childNodes[y].childNodes[0].childNodes[x] 가 비어진 경우를 다루기 위해서 isAvailable 추가
+        const isAvailable = checkEmpty(target);
+        if(isAvailable){
+            target.classList.add(type, "moving");
+        } else {
+            tempMovingItem = { ...movingItem };
+            setTimeout( ()=> {
+                if(moveType === "top"){
+                    
+                }
+                renderBlocks();
+            },0)
+
+        }
     })
+    movingItem.left = left;
+    movingItem.top = top;
+    movingItem.direction = direction;
+}
+function checkEmpty(target){
+    if(!target){
+        return false;
+    }
+    return true;
 }
 
+// event handling
 document.addEventListener("keydown", e=> { 
     switch(e.keyCode){
         case 39:
@@ -79,6 +102,10 @@ document.addEventListener("keydown", e=> {
         case 37:
             moveBlock("left", -1);
             break;
+        case 40:
+            moveBlock("top", 1);
+            break;
+        
         default:
             break;
     }
