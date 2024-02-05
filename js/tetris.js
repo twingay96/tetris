@@ -2,7 +2,8 @@ import BLOCKS from "./blocks.js";
 
 // DOM
 const playground = document.querySelector(".playground > ul");
-
+const gameText = document.querySelector(".game-text");
+const scoreDisplay = document.querySelector(".score");
 // Setting
 const GAME_ROWS =20;
 const GAME_COLS = 10;
@@ -45,6 +46,9 @@ function prependNewLine(){
     li.prepend(ul);
     playground.prepend(li);
 }
+function showGameoverText(){
+    gameText.style.display = "flex";
+}
 
 function renderBlocks(moveType=""){
     // BLOCKS의 모양대로 렌더링해주는 역할
@@ -67,8 +71,14 @@ function renderBlocks(moveType=""){
             target.classList.add(type, "moving");
         } else {
             tempMovingItem = { ...movingItem };
+            if(moveType === 'retry'){
+                clearInterval(downInterval);
+                showGameoverText();
+            }
             setTimeout( ()=> {
-                renderBlocks();
+                renderBlocks('retry');
+                // 블럭이 한번 화면밖을 벗어나는 경우 retry를 인자로 넘기면서 renderBlocks를 호출
+                // 만약 retry가 있는 상태로 다시 else문을 타게 될 경우 이건 게임 오버와 같은 경우임 
                 if(moveType === "top"){
                     seizeBlock(); 
                 }
