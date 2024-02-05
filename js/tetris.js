@@ -4,6 +4,7 @@ import BLOCKS from "./blocks.js";
 const playground = document.querySelector(".playground > ul");
 const gameText = document.querySelector(".game-text");
 const scoreDisplay = document.querySelector(".score");
+const restartButton = document.querySelector(".game-text > button");
 // Setting
 const GAME_ROWS =20;
 const GAME_COLS = 10;
@@ -116,6 +117,8 @@ function checkMatch(){
             child.remove();
             // 해당 줄 통째로 지우고 맨위에 한줄이 새로 생성(추가 prepend )
             prependNewLine();
+            score++;
+            scoreDisplay.innerHTML = score;
         }
     })
     generateNewBlock();
@@ -190,3 +193,11 @@ function moveBlock(moveType, amount ){
     tempMovingItem[moveType] += amount;
     renderBlocks(moveType)
 }
+
+restartButton.addEventListener("click",()=>{
+    playground.innerHTML = ""
+    // playground 내부 요소를 전부 삭제
+    gameText.style.display = "none";
+    init()
+    // init()이 다시 실행되면서 눈금부터 다시그리면서 재시작됨.
+})
