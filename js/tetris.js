@@ -1,3 +1,5 @@
+import BLOCKS from "./blocks.js";
+
 // DOM
 const playground = document.querySelector(".playground > ul");
 
@@ -10,15 +12,7 @@ let duration = 500;
 let downInterval ;
 let tempMovingItem; // 무빙을 실제로실행하기 전에 잠깐 담아두는 변수
 
-const BLOCKS= {
-    tree: [
-        // 4개의 배열은 특정 블럭을 회전시켰을때 나올 수 있는 4개의 모양 ( direction )
-        [[2,1],[0,1],[1,0],[1,1]],
-        [[1,2],[0,1],[1,0],[1,1]],
-        [[1,2],[0,1],[2,1],[1,1]],
-        [[2,1],[1,2],[1,0],[1,1]],
-    ]
-}
+
 
 const movingItem = {
     // type과 좌표정보 저장변수
