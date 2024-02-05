@@ -27,7 +27,6 @@ init()
 
 //functions
 function init(){
-    // 처음 script가 호출이 될때 실행되는 함수
     tempMovingItem = {...movingItem};
     // 스프레드 오퍼레이터를 통해서 변수를 담으면 movingItem내부의 값만 tempMovingItem에 저장됨
     for(let i = 0; i < GAME_ROWS; i++) {
@@ -96,6 +95,11 @@ function seizeBlock(){
 
  // 블럭이 seized 되면 새로운 block 생성시키는 함수
 function generateNewBlock(){
+    const blockArray = Object.entries(BLOCKS);
+    const randomIndex = Math.floor(Math.random() * blockArray.length);
+
+
+    movingItem.type = blockArray[randomIndex][0]
     movingItem.top = 0;
     movingItem.left = 3;
     movingItem.direction =0;
