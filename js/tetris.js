@@ -16,7 +16,7 @@ let tempMovingItem; // 무빙을 실제로실행하기 전에 잠깐 담아두�
 
 const movingItem = {
     // type과 좌표정보 저장변수
-    type: "tree",
+    type: "",
     direction: 0, // 화살표 방향 위를 눌렀을때 회전시키는용도
     top: 0,
     left: 0,
@@ -32,7 +32,7 @@ function init(){
     for(let i = 0; i < GAME_ROWS; i++) {
         prependNewLine()
     }
-    renderBlocks();
+    generateNewBlock()
 }
 
 function prependNewLine(){
@@ -95,6 +95,12 @@ function seizeBlock(){
 
  // 블럭이 seized 되면 새로운 block 생성시키는 함수
 function generateNewBlock(){
+    // 인터벌 마다 자동으로 블럭이 밑으로 이동하게끔 설정
+    clearInterval(downInterval);
+    downInterval = setInterval(()=> {
+        moveBlock('top',1);
+    },duration)
+
     const blockArray = Object.entries(BLOCKS);
     const randomIndex = Math.floor(Math.random() * blockArray.length);
 
