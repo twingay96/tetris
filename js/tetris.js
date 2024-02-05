@@ -62,15 +62,13 @@ function renderBlocks(moveType=""){
         moving.classList.remove(type, "moving");
     })
 
-    // isAvailable이 null인 경우가 반복문 도중에 한번이라도 나타나면 더 이상 반복을 할 필요가 없기에 반복을 멈추도록 
-    // 반복 도중에 break를 시킬 수 없는 forEach 대신에 some을 사용하여 원하는 시점에 반복문을 정지시키고, else문을 실행시키는 것이 더 효율적
+
     BLOCKS[type][direction].some(block => {
         const x = block[0] + left;
         const y = block[1] + top;
-        console.log( playground.childNodes[y])
-        // 블럭이 정해진 공간 이상으로 벗남 == playground.childNodes[y]가 없거나 playground.childNodes[y].childNodes[0].childNodes[x]가 없는경우
+
         const target = playground.childNodes[y] ? playground.childNodes[y].childNodes[0].childNodes[x] : null;
-        // playground.childNodes[y].childNodes[0].childNodes[x] 가 비어진 경우를 다루기 위해서 isAvailable 추가
+        // checkEmpty가 단순히 여백여부만을 체크 하는 것이 아니라 seized 클래스를 가진 것이 있는지도 체크하도록 수정
         const isAvailable = checkEmpty(target);
         if(isAvailable){
             target.classList.add(type, "moving");
@@ -79,8 +77,6 @@ function renderBlocks(moveType=""){
             setTimeout( ()=> {
                 renderBlocks();
                 if(moveType === "top"){
-                    // 만약 밑으로 떨어지는 도중에 playground.childNodes[y]가 없거나 playground.childNodes[y].childNodes[0].childNodes[x]가 없는경우
-                    // 해당 블럭을 고정시키는 함수 호출 ( 블럭이 더 이상 내려가지 않도록 )
                     seizeBlock(); 
                 }
             },0)
@@ -92,12 +88,18 @@ function renderBlocks(moveType=""){
     movingItem.direction = direction;
 }
 
+// seizeBlock 밑의 요소가 seized라는 클래스를 가지고 있으면 다시 한번 더 중지시키는 기능추가
 function seizeBlock(){
-    console.log('seize block')
+    const movingBlocks = document.querySelectorAll(".moving");
+    movingBlocks.forEach(moving=>{
+        moving.classList.remove("moving");
+        // moving 클래스를 제거하면 키입력에따라서 더이상 움직이지 않을 것
+        moving.classList.add("seized");
+    })
 }
-
+//checkEmpty가 단순히 여백여부만을 체크 하는 것이 아니라 seized 클래스를 가진 것이 있는지도 체크하도록 수정
 function checkEmpty(target){
-    if(!target){
+    if(!target || target.classList.contains("seized")){
         return false;
     }
     return true;
