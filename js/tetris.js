@@ -89,7 +89,25 @@ function seizeBlock(){
         // moving 클래스를 제거하면 키입력에따라서 더이상 움직이지 않을 것
         moving.classList.add("seized");
     })
-    // 블럭이 seized 되면 새로운 block 생성시키는 함수
+    // 완성된 한줄은 지워주는 함수
+    checkMatch();
+}
+function checkMatch(){
+    const childNodes = playground.childNodes;
+    childNodes.forEach(child => {
+        let matched = true;
+        child.children[0].childNodes.forEach(li=>{
+            if(!li.classList.contains("seized")){
+                matched = false;
+            }
+        })
+        // 각각의 줄들의 li태그 들중 한줄이라도 seized가 없는 것이 없다면( 전부 seized라면 )
+        if(matched){
+            child.remove();
+            // 해당 줄 통째로 지우고 맨위에 한줄이 새로 생성(추가 prepend )
+            prependNewLine();
+        }
+    })
     generateNewBlock();
 }
 
