@@ -126,6 +126,13 @@ function changeDirection(){
     direction === 3? tempMovingItem.direction = 0 : tempMovingItem.direction +=1;
     renderBlocks();
 }
+function dropBlock(){
+    clearInterval(downInterval);
+    downInterval = setInterval(()=> {
+        moveBlock("top",1);
+        // 인터벌을 매우 짧게 설정
+    },10)
+}
 
 // event handling
 document.addEventListener("keydown", e=> { 
@@ -142,6 +149,9 @@ document.addEventListener("keydown", e=> {
         case 38:
             changeDirection();
             break;
+        case 32: // space바를 누를경우
+            dropBlock();
+            break
         default:
             break;
     }
