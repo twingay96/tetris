@@ -96,7 +96,19 @@ function seizeBlock(){
         // moving 클래스를 제거하면 키입력에따라서 더이상 움직이지 않을 것
         moving.classList.add("seized");
     })
+    // 블럭이 seized 되면 새로운 block 생성시키는 함수
+    generateNewBlock();
 }
+
+ // 블럭이 seized 되면 새로운 block 생성시키는 함수
+function generateNewBlock(){
+    movingItem.top = 0;
+    movingItem.left = 3;
+    movingItem.direction =0;
+    tempMovingItem = {...movingItem};
+    renderBlocks();
+}
+
 //checkEmpty가 단순히 여백여부만을 체크 하는 것이 아니라 seized 클래스를 가진 것이 있는지도 체크하도록 수정
 function checkEmpty(target){
     if(!target || target.classList.contains("seized")){
